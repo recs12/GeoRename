@@ -1,7 +1,6 @@
 ﻿open System.IO
 open System
 open FSharp.Data
-open FSharp.Collections
 
 
 //"C:\\Users\\recs\\OneDrive - Premier Tech\\Bureau\\GEO\\F#\\GeoRename\\rename-sample.csv"
@@ -18,14 +17,14 @@ let Renaming (folderpath: string) (filename: string) (newfilename: string) : uni
 [<EntryPoint>]
 let main args =
 
-    printfn "%s" "[INPUT] Enter the path to the renaming file (format : csv):"
+    printfn "%s" "[INPUT] Enter the path to the renaming file (format csv [columns = Folder Path, Filename, New Filename]):"
     let csv_file: string = Console.ReadLine()
     printfn "%s" csv_file
     let csv_ = CsvFile.Load(csv_file).Cache()
 
     csv_.Rows
     |> Seq.iter (fun row ->
-        Renaming (row.GetColumn "FolderPath") (row.GetColumn "Filename") (row.GetColumn "NewFilename"))
+        Renaming (row.GetColumn "Folder Path") (row.GetColumn "Filename") (row.GetColumn "New Filename"))
     printfn "Process completed successfully."
     printfn "Press any key to exit..."
     Console.ReadLine() |> ignore
